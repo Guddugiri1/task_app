@@ -63,3 +63,15 @@ Built using **Riverpod** for state management and a clean, layered architecture.
 ```bash
 git clone https://github.com/Guddugiri1/task_app.git
 cd task_app
+
+2. Install dependencies
+flutter pub get
+
+3. Setup Firebase
+Create a Firebase project at Firebase Console
+Enable Authentication → Email/Password
+Enable Firestore Database
+Add Firebase to your Flutter app:
+Download the google-services.json (Android) and GoogleService-Info.plist (iOS)
+Place them in the appropriate platform directories (android/app/ and ios/Runner/)
+
