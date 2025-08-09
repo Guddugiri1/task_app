@@ -29,8 +29,6 @@ Built using **Riverpod** for state management and a clean, layered architecture.
 
 ---
 
-## 📸 Screen!
-
 ## 📸 Screenshots
 
 <p align="center">
