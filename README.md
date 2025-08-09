@@ -32,15 +32,15 @@ Built using **Riverpod** for state management and a clean, layered architecture.
 ## 📸 Screenshots
 
 <p align="center">
+  <img src="(https://github.com/user-attachments/assets/025599de-ecc2-4103-b8f7-f76fc7635b48" width="22%" />
   <img src="https://github.com/user-attachments/assets/e71e0050-fe7e-4058-9b27-e79f19c0f3a5" width="22%" />
   <img src="https://github.com/user-attachments/assets/1a1d93e1-e854-4f8e-8bb8-3d036d9f32ef" width="22%" />
   <img src="https://github.com/user-attachments/assets/239bef94-8933-47c1-a867-e61e73b6131a" width="22%" />
-  <img src="https://github.com/user-attachments/assets/f88edb00-393e-42d5-939a-f0539ff631e7" width="22%" />
 </p>
 
 <p align="center">
+  <img src="https://github.com/user-attachments/assets/f88edb00-393e-42d5-939a-f0539ff631e7" width="22%" />
   <img src="https://github.com/user-attachments/assets/9846c565-c4b8-4dd5-8943-6a9ec27d3e3e" width="22%" />
-  <img src="https://github.com/user-attachments/assets/f544214b-4d1c-42b3-bd8c-91bebfa6981a" width="22%" />
   <img src="https://github.com/user-attachments/assets/790ea8e2-30dd-4369-aa11-c850735ddcd2" width="22%" />
   <img src="https://github.com/user-attachments/assets/9870d76a-c2ff-4638-babb-fbf032130080" width="22%" />
 </p>
