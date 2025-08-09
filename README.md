@@ -1,4 +1,4 @@
-<img width="1344" height="2992" alt="1" src="https://github.com/user-attachments/assets/fe963b50-d614-40a7-8bff-8ff3d7bc4217" /># 📋 Task Management App
+📋 Task Management App
 
 A **Flutter** application that allows users to **sign up, log in, and manage tasks** with Firebase Authentication and Firestore.  
 Built using **Riverpod** for state management and a clean, layered architecture.
