@@ -32,7 +32,7 @@ Built using **Riverpod** for state management and a clean, layered architecture.
 ## 📸 Screenshots
 
 <p align="center">
-  <img src="(https://github.com/user-attachments/assets/025599de-ecc2-4103-b8f7-f76fc7635b48" width="22%" />
+  <img src="https://github.com/user-attachments/assets/025599de-ecc2-4103-b8f7-f76fc7635b48" width="22%" />
   <img src="https://github.com/user-attachments/assets/e71e0050-fe7e-4058-9b27-e79f19c0f3a5" width="22%" />
   <img src="https://github.com/user-attachments/assets/1a1d93e1-e854-4f8e-8bb8-3d036d9f32ef" width="22%" />
   <img src="https://github.com/user-attachments/assets/239bef94-8933-47c1-a867-e61e73b6131a" width="22%" />
