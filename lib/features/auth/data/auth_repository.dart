@@ -1,32 +1,47 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:task_app/features/auth/data/services/firebase_auth_service.dart';
+import 'package:task_app/features/auth/data/services/user_firestore_service.dart';
 import 'models/user_model.dart';
 
 class AuthRepository {
   final FirebaseAuthService _authService;
+  final UserFirestoreService _firestoreService; // New dependency
 
-  AuthRepository(this._authService);
+  AuthRepository(this._authService, this._firestoreService);
 
-  Stream<UserModel?> get authStateChanges =>
-      _authService.authStateChanges.map((firebaseUser) {
-        return firebaseUser != null
-            ? UserModel.fromFirebaseUser(firebaseUser)
-            : null;
-      });
+  /// Provides a stream of the raw Firebase User object to check auth state.
+  Stream<firebase_auth.User?> get authStateChanges =>
+      _authService.authStateChanges;
 
-  Future<UserModel> signInWithEmailAndPassword(
+  /// Signs in a user with email and password.
+  Future<firebase_auth.User> signInWithEmailAndPassword(
       String email, String password) async {
-    final firebaseUser =
-    await _authService.signInWithEmailAndPassword(email, password);
-    return UserModel.fromFirebaseUser(firebaseUser);
+    return await _authService.signInWithEmailAndPassword(email, password);
   }
 
-  Future<UserModel> signUpWithEmailAndPassword(
-      String email, String password) async {
+  /// Signs up a new user and creates their profile in Firestore.
+  Future<void> signUpWithEmailAndPassword({
+    required String email,
+    required String password,
+    required String username,
+    String? mobileNumber,
+  }) async {
+    // 1. Create the user in Firebase Authentication
     final firebaseUser =
     await _authService.createUserWithEmailAndPassword(email, password);
-    return UserModel.fromFirebaseUser(firebaseUser);
+
+    // 2. Create our custom UserModel with all the required data
+    final newUser = UserModel(
+      id: firebaseUser.uid,
+      username: username,
+      email: email,
+      mobileNumber: mobileNumber?.isNotEmpty ?? false ? mobileNumber : null,
+    );
+
+    // 3. Save the new user's complete profile to our Firestore database
+    await _firestoreService.addUser(newUser);
   }
 
+  /// Signs out the current user.
   Future<void> signOut() => _authService.signOut();
 }

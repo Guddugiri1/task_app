@@ -8,7 +8,6 @@ import '../../data/providers/auth_providers.dart';
 import '../data/models/task_model.dart';
 import '../providers/task_providers.dart';
 
-
 class EditTaskScreen extends ConsumerStatefulWidget {
   final TaskModel task;
   const EditTaskScreen({super.key, required this.task});
@@ -28,8 +27,7 @@ class _EditTaskScreenState extends ConsumerState<EditTaskScreen> {
   void initState() {
     super.initState();
     _titleController = TextEditingController(text: widget.task.title);
-    _descriptionController =
-        TextEditingController(text: widget.task.description);
+    _descriptionController = TextEditingController(text: widget.task.description);
     _isCompleted = widget.task.isCompleted;
   }
 
@@ -41,12 +39,13 @@ class _EditTaskScreenState extends ConsumerState<EditTaskScreen> {
   }
 
   Future<void> _saveChanges() async {
-    // Hide keyboard
     FocusScope.of(context).unfocus();
 
     if (_formKey.currentState!.validate()) {
       setState(() => _isLoading = true);
-      final user = ref.read(authStateChangesProvider).value;
+      final user = ref
+          .read(authStateChangesProvider)
+          .value;
       if (user == null) {
         if (mounted) {
           showStyledSnackBar(context: context, content: 'Authentication error.');
@@ -62,12 +61,11 @@ class _EditTaskScreenState extends ConsumerState<EditTaskScreen> {
       );
 
       try {
-        await ref
-            .read(taskRepositoryProvider)
-            .updateTask(user.id, updatedTask);
+        // FIX: Changed user.id to user.uid
+        await ref.read(taskRepositoryProvider).updateTask(user.uid, updatedTask);
         if (mounted) {
           showStyledSnackBar(context: context, content: 'Task updated successfully!');
-          context.go('/');
+          context.go('/tasks');
         }
       } catch (e) {
         if (mounted) {
@@ -94,8 +92,10 @@ class _EditTaskScreenState extends ConsumerState<EditTaskScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Task Title',
-                  style: Theme.of(context).textTheme.titleMedium),
+              Text('Task Title', style: Theme
+                  .of(context)
+                  .textTheme
+                  .titleMedium),
               const SizedBox(height: 8),
               TextFormField(
                 controller: _titleController,
@@ -107,10 +107,10 @@ class _EditTaskScreenState extends ConsumerState<EditTaskScreen> {
                 textInputAction: TextInputAction.next,
               ),
               const SizedBox(height: 24),
-
-              // --- Description Field ---
-              Text('Description (Optional)',
-                  style: Theme.of(context).textTheme.titleMedium),
+              Text('Description (Optional)', style: Theme
+                  .of(context)
+                  .textTheme
+                  .titleMedium),
               const SizedBox(height: 8),
               TextFormField(
                 controller: _descriptionController,
@@ -125,24 +125,26 @@ class _EditTaskScreenState extends ConsumerState<EditTaskScreen> {
                 textInputAction: TextInputAction.done,
               ),
               const SizedBox(height: 24),
-
               Container(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  color: Theme.of(context).primaryColor.withOpacity(0.05),
+                  color: Theme
+                      .of(context)
+                      .primaryColor
+                      .withOpacity(0.05),
                 ),
                 child: SwitchListTile(
-                  title: Text('Mark as Completed',
-                      style: Theme.of(context).textTheme.titleMedium),
+                  title: Text('Mark as Completed', style: Theme
+                      .of(context)
+                      .textTheme
+                      .titleMedium),
                   value: _isCompleted,
                   onChanged: (value) => setState(() => _isCompleted = value),
                   contentPadding: EdgeInsets.zero,
                 ),
               ),
               const SizedBox(height: 40),
-
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -154,10 +156,7 @@ class _EditTaskScreenState extends ConsumerState<EditTaskScreen> {
                       ? const SizedBox(
                     height: 24,
                     width: 24,
-                    child: CircularProgressIndicator(
-                      color: Colors.white,
-                      strokeWidth: 3,
-                    ),
+                    child: CircularProgressIndicator(color: Colors.white, strokeWidth: 3),
                   )
                       : const Text(AppStrings.save),
                 ),

@@ -1,15 +1,39 @@
-import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
-  final String id;
-  final String? email;
+  final String id; // This is the UID from Firebase Auth
+  final String username;
+  final String email;
+  final String? mobileNumber;
 
-  const UserModel({required this.id, this.email});
+  const UserModel({
+    required this.id,
+    required this.username,
+    required this.email,
+    this.mobileNumber,
+  });
 
-  factory UserModel.fromFirebaseUser(firebase_auth.User user) {
+  /// Converts this UserModel instance into a Map<String, dynamic>.
+  /// This is used for writing data to Firestore.
+  Map<String, dynamic> toMap() {
+    return {
+      'uid': id,
+      'username': username,
+      'email': email,
+      'mobileNumber': mobileNumber,
+    };
+  }
+
+  /// Creates a UserModel instance from a Firestore document snapshot.
+  /// This is used for reading data from Firestore.
+  factory UserModel.fromFirestore(DocumentSnapshot<Map<String, dynamic>> doc) {
+    final data = doc.data();
+    // Use a default value or handle potential null data gracefully
     return UserModel(
-      id: user.uid,
-      email: user.email,
+      id: data?['uid'] ?? doc.id,
+      username: data?['username'] ?? 'No Username',
+      email: data?['email'] ?? 'No Email',
+      mobileNumber: data?['mobileNumber'],
     );
   }
 }

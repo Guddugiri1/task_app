@@ -25,8 +25,9 @@ class TaskDetailScreen extends ConsumerWidget {
         final user = ref.read(authStateChangesProvider).value;
         if (user != null && context.mounted) {
           try {
-            await ref.read(taskRepositoryProvider).deleteTask(user.id, task.id);
-            context.go('/');
+            // FIX: Changed user.id to user.uid
+            await ref.read(taskRepositoryProvider).deleteTask(user.uid, task.id);
+            context.go('/tasks');
             showStyledSnackBar(context: context, content: 'Task deleted successfully.');
           } catch (e) {
             showStyledSnackBar(context: context, content: 'Error: $e');
@@ -41,7 +42,7 @@ class TaskDetailScreen extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.edit_note_rounded),
-            onPressed: () => context.go('/task/${task.id}/edit', extra: task),
+            onPressed: () => context.go('/tasks/task/${task.id}/edit', extra: task),
           ),
           IconButton(
             icon: const Icon(Icons.delete_rounded, color: Colors.red),
@@ -88,7 +89,12 @@ class TaskDetailScreen extends ConsumerWidget {
                     title: const Text('Completed', style: TextStyle(fontWeight: FontWeight.bold)),
                     value: task.isCompleted,
                     onChanged: (isCompleted) async {
-                      // ... (update logic is the same)
+                      final user = ref.read(authStateChangesProvider).value;
+                      if (user != null) {
+                        // FIX: Changed user.id to user.uid
+                        await ref.read(taskRepositoryProvider).updateTask(
+                            user.uid, task.copyWith(isCompleted: isCompleted));
+                      }
                     },
                   ),
                   const Divider(height: 1),

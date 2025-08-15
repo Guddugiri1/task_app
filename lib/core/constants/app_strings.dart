@@ -1,5 +1,5 @@
 class AppStrings {
-  static const String appName = 'Task Master';
+  static const String appName = 'LUMO AI';
 
   // Auth Screen
   static const String login = 'Login';
